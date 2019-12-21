@@ -1,0 +1,76 @@
+package org.csiVesit.cricomania.feeder;
+
+public class CricoManiaPlayer
+{
+	int playerID, poolID, age, brandValue;
+	String playerName, country, typeOfPlayer, photoFilePath;
+	boolean isAvailable, isSold;
+	double basePrice;
+	
+	public int getPlayerID() {
+		return playerID;
+	}
+	public void setPlayerID(int playerID) {
+		this.playerID = playerID;
+	}
+	public int getPoolID() {
+		return poolID;
+	}
+	public void setPoolID(int poolID) {
+		this.poolID = poolID;
+	}
+	public int getAge() {
+		return age;
+	}
+	public void setAge(int age) {
+		this.age = age;
+	}
+	public int getBrandValue() {
+		return brandValue;
+	}
+	public void setBrandValue(int brandValue) {
+		this.brandValue = brandValue;
+	}
+	public String getPlayerName() {
+		return playerName;
+	}
+	public void setPlayerName(String playerName) {
+		this.playerName = playerName;
+	}
+	public String getCountry() {
+		return country;
+	}
+	public void setCountry(String country) {
+		this.country = country;
+	}
+	public String getTypeOfPlayer() {
+		return typeOfPlayer;
+	}
+	public void setTypeOfPlayer(String typeOfPlayer) {
+		this.typeOfPlayer = typeOfPlayer;
+	}
+	public String getPhotoFilePath() {
+		return photoFilePath;
+	}
+	public void setPhotoFilePath(String photoFilePath) {
+		this.photoFilePath = photoFilePath;
+	}
+	public boolean isAvailable() {
+		return isAvailable;
+	}
+	public void setAvailable(boolean isAvailable) {
+		this.isAvailable = isAvailable;
+	}
+	public boolean isSold() {
+		return isSold;
+	}
+	public void setSold(boolean isSold) {
+		this.isSold = isSold;
+	}
+	public double getBasePrice() {
+		return basePrice;
+	}
+	public void setBasePrice(double basePrice) {
+		this.basePrice = basePrice;
+	}
+}

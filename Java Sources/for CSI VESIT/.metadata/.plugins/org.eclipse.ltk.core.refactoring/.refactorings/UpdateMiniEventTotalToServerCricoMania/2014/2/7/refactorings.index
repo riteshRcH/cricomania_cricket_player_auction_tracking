@@ -1,0 +1,7 @@
+1392133977970	Rename field 'jtxfDBVendor'
+1392133996873	Rename field 'jtxfDBServerIPPort'
+1392134001585	Rename field 'jtxfDBName'
+1392134007100	Rename field 'jtxfDBUsername'
+1392134016239	Rename field 'jtxfDBPassword'
+1392134371719	Rename method 'addMiniEventTotalPerTeamToServer'
+1392137027199	Rename type 'MiniEventsScorerServer'

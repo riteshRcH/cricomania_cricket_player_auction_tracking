@@ -1,0 +1,302 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ScrollView1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".MiniEventScoresFeederActivity" >
+    
+    <LinearLayout
+        android:id="@+id/LinearLayout1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+    
+	    <Button 
+	        android:id="@+id/btnUpdateFetchMiniEventDetails"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="10dip"
+	        android:layout_marginBottom="10dip"
+	        android:text="Update/Fetch Mini Event Details" />
+	    
+	    <View android:layout_width="fill_parent"
+	    	android:layout_height="4dp"
+	    	android:background="@android:color/white"
+	    	android:layout_marginTop="10dp"
+		    android:layout_marginBottom="10dp" />
+	    
+	    <Button 
+	        android:id="@+id/btnChooseMiniEventName"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="10dip"
+	        android:layout_marginBottom="10dip"
+	        android:text="Choose Mini Event" />
+	    
+	    <Spinner 
+	        android:id="@+id/spinnerChooseMiniEventName"
+	        android:layout_marginTop="20dip"
+	        android:visibility="invisible" 
+	        android:layout_width="0dip"
+	        android:layout_height="0dip"
+	        android:spinnerMode="dropdown" />
+	    
+	    <Spinner 
+	        android:id="@+id/spinnerChooseTeam"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:spinnerMode="dropdown" />
+	    
+	    
+	    <View android:layout_width="fill_parent"
+	    	android:layout_height="4dp"
+	    	android:background="@android:color/white"
+	    	android:layout_marginTop="10dp"
+		    android:layout_marginBottom="10dp" />
+	    
+	    <TextView 
+	        android:id="@+id/txtviewShowMiniEventAmtWonInWords"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:textIsSelectable="true" />
+	    
+	    <EditText 
+	        android:id="@+id/editTextMiniEventAmtWonLost" 
+	        android:hint="Enter amt won(+ve)/lost(-ve) lost in mini-event" 
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="10dip"
+	        android:layout_marginBottom="10dip"
+	        android:digits="0123456789,."
+	        android:singleLine="true" />
+		<Button
+		        android:id="@+id/btnClearOffMiniEventAmtWon"
+		        android:layout_height="wrap_content"
+		        android:layout_width="fill_parent"
+		        android:text="Clear Amt" />    
+	    
+	    <TableRow
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:weightSum="1.0" >
+
+	        <Button 
+	        android:id="@+id/btnMulAmtBy10"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="x10"
+	        android:layout_weight="0.5" />
+	        
+	        <Button 
+	        android:id="@+id/btnAddToAmt10"
+	        android:layout_weight="0.5"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="+10" />
+	    </TableRow>
+	    
+	   	<TableRow
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:weightSum="1.0" >
+
+	        <Button 
+	        android:id="@+id/btnMulAmtBy100"
+	        android:layout_weight="0.5"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="x100" />
+	        
+	        <Button 
+	        android:id="@+id/btnAddToAmt100"
+	        android:layout_weight="0.5"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="+100" />
+	    </TableRow>
+	    
+		<TableRow
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:weightSum="1.0" >
+
+	        <Button 
+	        android:id="@+id/btnMulAmtBy1k"
+	        android:layout_weight="0.5"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="x1000" />
+	        
+	        <Button 
+	        android:id="@+id/btnAddToAmt1k"
+	        android:layout_weight="0.5"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="+1000" />
+	    </TableRow>
+	    
+	   	<TableRow
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:weightSum="1.0" >
+
+	        <Button 
+	        android:id="@+id/btnMulAmtBy10k"
+	        android:layout_weight="0.5"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="x10K" />
+	        
+	        <Button 
+	        android:id="@+id/btnAddToAmt10k"
+	        android:layout_weight="0.5"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="+10K" />
+	    </TableRow>
+	    
+	   	<TableRow
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:weightSum="1.0" >
+
+	        <Button 
+	        android:id="@+id/btnMulAmtBy1Lac"
+	        android:layout_weight="0.5"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="x1 Lac" />
+	        
+	        <Button 
+	        android:id="@+id/btnAddToAmt1Lac"
+	        android:layout_weight="0.5"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="+1 Lac" />
+	    </TableRow>
+	    
+	   	<TableRow
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:weightSum="1.0" >
+
+	        <Button 
+	        android:id="@+id/btnMulAmtBy10Lac"
+	        android:layout_weight="0.5"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="x10 Lac" />
+	        
+	        <Button 
+	        android:id="@+id/btnAddToAmt10Lac"
+	        android:layout_weight="0.5"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="+10 Lac" />
+	    </TableRow>
+	    
+	   	<TableRow
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:weightSum="1.0" >
+
+	        <Button 
+	        android:id="@+id/btnMulAmtBy1Cr"
+	        android:layout_weight="0.5"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="x1 Cr" />
+	        
+	        <Button 
+	        android:id="@+id/btnAddToAmt1Cr"
+	        android:layout_weight="0.5"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="+1 Cr" />
+	    </TableRow>
+	    
+	   	<TableRow
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:weightSum="1.0" >
+
+	        <Button 
+	        android:id="@+id/btnMulAmtBy5Cr"
+	        android:layout_weight="0.5"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="x5 Cr" />
+	        
+	        <Button 
+	        android:id="@+id/btnAddToAmt5Cr"
+	        android:layout_weight="0.5"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="+5 Cr" />
+	    </TableRow>
+	    
+	   	<TableRow
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:weightSum="1.0" >
+
+	        <Button 
+	        android:id="@+id/btnMulAmtBy10Cr"
+	        android:layout_weight="0.5"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="x10 Cr" />
+	        
+	        <Button 
+	        android:id="@+id/btnAddToAmt10Cr"
+	        android:layout_weight="0.5"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="+10 Cr" />
+	    </TableRow>
+	    
+	   	<Button
+		        android:id="@+id/btnMulByMinus1"
+		        android:layout_height="wrap_content"
+		        android:layout_width="fill_parent"
+		        android:text="x -1" />
+	    
+	    <Button 
+	        android:id="@+id/btnInsertAsLatestEntry"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="20dip"
+	        android:layout_marginBottom="10dip"
+	        android:text="Insert as Latest Entry" />
+	    
+	    <Button 
+	        android:id="@+id/btnUpdateLatestEntry"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="10dip"
+	        android:layout_marginBottom="10dip"
+	        android:text="Update Latest Entry" />
+	    
+	    <Button 
+	        android:id="@+id/btnViewLatestEntry"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="10dip"
+	        android:layout_marginBottom="10dip"
+	        android:text="View Latest Entry" />
+	    
+	    <Button 
+	        android:id="@+id/btnDeleteLatestEntry"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="10dip"
+	        android:layout_marginBottom="10dip"
+	        android:text="Delete Latest Entry" />
+	    
+	   </LinearLayout>
+
+</ScrollView>

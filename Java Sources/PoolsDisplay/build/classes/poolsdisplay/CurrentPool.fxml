@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="700.0" prefWidth="949.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="poolsdisplay.CurrentPoolController">
+  <children>
+    <Button fx:id="refresh" cancelButton="false" defaultButton="false" layoutX="780.0" layoutY="666.0" mnemonicParsing="false" onAction="#handleButtonAction" text="">
+      <effect>
+        <Glow level="0.679245283018868" />
+      </effect>
+    </Button>
+    <ImageView fx:id="img1" fitHeight="37.00000762939453" fitWidth="420.0000305175781" layoutX="110.0" layoutY="58.0" pickOnBounds="true" preserveRatio="false">
+      <image>
+        <Image url="@../crico_images/img2.png" />
+      </image>
+    </ImageView>
+    <ImageView fx:id="img2" fitHeight="37.00000762939453" fitWidth="420.0000305175781" layoutX="110.0" layoutY="98.0" pickOnBounds="true" preserveRatio="false">
+      <image>
+        <Image url="@../crico_images/img2.png" />
+      </image>
+    </ImageView>
+    <ImageView fitHeight="46.0" fitWidth="384.0" layoutX="128.0" layoutY="8.0" pickOnBounds="true" preserveRatio="false">
+      <image>
+        <Image url="@../crico_images/stats.png" />
+      </image>
+    </ImageView>
+    <Label layoutX="139.0" layoutY="18.0" text="Pool No." textFill="WHITE">
+      <font>
+        <Font size="20.0" fx:id="x1" />
+      </font>
+    </Label>
+    <Label fx:id="pool_no" font="$x1" layoutX="225.0" layoutY="18.0" text="X" textFill="WHITE" />
+    <Label fx:id="pool_name" font="$x1" layoutX="310.0" layoutY="16.0" prefHeight="30.0" prefWidth="171.0" text="Allrounder-1" textAlignment="LEFT" textFill="WHITE" textOverrun="CLIP" wrapText="false" />
+    <ImageView fx:id="img3" fitHeight="37.00000762939453" fitWidth="420.0000305175781" layoutX="110.0" layoutY="138.0" pickOnBounds="true" preserveRatio="false">
+      <image>
+        <Image url="@../crico_images/img2.png" />
+      </image>
+    </ImageView>
+    <ImageView fx:id="img4" fitHeight="37.00000762939453" fitWidth="420.0000305175781" layoutX="110.0" layoutY="178.0" pickOnBounds="true" preserveRatio="false">
+      <image>
+        <Image url="@../crico_images/img2.png" />
+      </image>
+    </ImageView>
+    <ImageView fx:id="img5" fitHeight="37.00000762939453" fitWidth="420.0000305175781" layoutX="110.0" layoutY="218.0" pickOnBounds="true" preserveRatio="false">
+      <image>
+        <Image url="@../crico_images/img2.png" backgroundLoading="false" />
+      </image>
+    </ImageView>
+    <ImageView fx:id="img6" fitHeight="37.00000762939453" fitWidth="420.0000305175781" layoutX="110.0" layoutY="258.0" pickOnBounds="true" preserveRatio="false">
+      <image>
+        <Image url="@../crico_images/img2.png" />
+      </image>
+    </ImageView>
+    <ImageView fx:id="img7" fitHeight="37.00000762939453" fitWidth="420.0000305175781" layoutX="110.0" layoutY="298.0" pickOnBounds="true" preserveRatio="false">
+      <image>
+        <Image url="@../crico_images/img2.png" />
+      </image>
+    </ImageView>
+    <ImageView fx:id="img8" fitHeight="37.00000762939453" fitWidth="420.0000305175781" layoutX="110.0" layoutY="338.0" pickOnBounds="true" preserveRatio="false">
+      <image>
+        <Image url="@../crico_images/img2.png" />
+      </image>
+    </ImageView>
+    <ImageView fx:id="img9" fitHeight="37.00000762939453" fitWidth="420.0000305175781" layoutX="110.0" layoutY="378.0" pickOnBounds="true" preserveRatio="false">
+      <image>
+        <Image url="@../crico_images/img2.png" />
+      </image>
+    </ImageView>
+    <Button fx:id="full_screen" layoutX="710.0" layoutY="665.0" mnemonicParsing="false" onAction="#handleFullScreenAction" prefWidth="28.0" text="" />
+    <ImageView fx:id="img10" fitHeight="37.00000762939453" fitWidth="420.0000305175781" layoutX="110.0" layoutY="418.0" pickOnBounds="true" preserveRatio="false">
+      <image>
+        <Image url="@../crico_images/img2.png" />
+      </image>
+    </ImageView>
+    <ImageView fx:id="img11" fitHeight="37.00000762939453" fitWidth="420.0000305175781" layoutX="110.0" layoutY="458.0" pickOnBounds="true" preserveRatio="false">
+      <image>
+        <Image url="@../crico_images/img2.png" />
+      </image>
+    </ImageView>
+    <ImageView fx:id="img12" fitHeight="37.00000762939453" fitWidth="420.0000305175781" layoutX="110.0" layoutY="498.0" pickOnBounds="true" preserveRatio="false">
+      <image>
+        <Image url="@../crico_images/img2.png" />
+      </image>
+    </ImageView>
+    <ImageView fx:id="img13" fitHeight="37.00000762939453" fitWidth="420.0000305175781" layoutX="110.0" layoutY="538.0" pickOnBounds="true" preserveRatio="false">
+      <image>
+        <Image url="@../crico_images/img2.png" />
+      </image>
+    </ImageView>
+    <ImageView fx:id="img14" fitHeight="37.00000762939453" fitWidth="420.0000305175781" layoutX="110.0" layoutY="578.0" pickOnBounds="true" preserveRatio="false">
+      <image>
+        <Image url="@../crico_images/img2.png" />
+      </image>
+    </ImageView>
+    <ImageView fx:id="img15" fitHeight="37.00000762939453" fitWidth="420.0000305175781" layoutX="110.0" layoutY="618.0" pickOnBounds="true" preserveRatio="false">
+      <image>
+        <Image url="@../crico_images/img2.png" />
+      </image>
+    </ImageView>
+    <ImageView fx:id="img16" fitHeight="37.00000762939453" fitWidth="420.0000305175781" layoutX="110.0" layoutY="658.0" pickOnBounds="true" preserveRatio="false">
+      <image>
+        <Image url="@../crico_images/img2.png" />
+      </image>
+    </ImageView>
+    <VBox fx:id="vb" alignment="TOP_CENTER" layoutX="110.0" layoutY="57.0" mouseTransparent="false" prefHeight="637.0" prefWidth="420.0" />
+  </children>
+</AnchorPane>

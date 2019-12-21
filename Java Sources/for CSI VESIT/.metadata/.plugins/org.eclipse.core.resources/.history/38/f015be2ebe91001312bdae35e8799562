@@ -1,0 +1,368 @@
+package org.csiVesit.cricomania.feeder;
+
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.lang.reflect.InvocationTargetException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.plaf.nimbus.NimbusLookAndFeel;
+
+import org.csiVesit.cricomania.feeder.AndroidLikeToast.Style;
+
+public class MainFrame extends JFrame
+{
+	private static final long serialVersionUID = 4385205301092956068L;
+	
+	JLabel jlblShowBoughtAtAmtInWords;
+	JTextField jtxfGetAmtAtWhichPlayerIsBought, jtxfGetTotalNumTeams;
+	JButton jbtnInsertIntoServer, jbtnSetTotalNumTeams;
+	
+	public static SimpleDateFormat logEventTimestampFormat = new SimpleDateFormat("dd MMM(MM) yyyy EEE hh:mm:ss:SSS a");
+	
+	JComboBox<Integer> jcomboBoxChooseTeamID;
+	JComboBox<String> jcomboBoxChooseBoughtPlayer;
+	
+	JTabbedPane jtpOperations = new JTabbedPane();
+	
+	JPanel jpGetTeamPlayerInfo = new JPanel(new GridLayout(0, 2));
+	
+	JPanel jpAmtOperations = new JPanel(new BorderLayout());
+	JPanel jpAmtModGrid = new JPanel(new GridLayout(0, 2));
+	GetNumberInWords getNumberInWords = new GetNumberInWords();
+	JButton jbtnMulAmtBy10, jbtnMulAmtBy100, jbtnMulAmtBy1k, jbtnMulAmtBy10k, jbtnMulAmtBy1Lac, jbtnMulAmtBy10Lac, jbtnMulAmtBy1Cr, jbtnMulAmtBy10Cr;
+	JButton jbtnAddToAmt10, jbtnAddToAmt100, jbtnAddToAmt1k, jbtnAddToAmt10k, jbtnAddToAmt1Lac, jbtnAddToAmt10Lac, jbtnAddToAmt1Cr, jbtnAddToAmt10Cr;
+	double playerBoughtAtAmt;
+	
+	int totalNumTeams;
+	
+	String DBConnURL = "jdbc:mysql://localhost:3306/csi_cricomania", DBLoginUsername = "root", DBLoginPassword = "cooperHawk!1259";
+	Connection conn;
+	Statement stmt;
+	ResultSet rs;
+	ArrayList<CricoManiaPlayer> allPlayers = new ArrayList<CricoManiaPlayer>();
+	
+	MainFrame()
+	{
+		/**********************************************************UI Code Starts here**********************************************************/
+		
+		super.setLayout(new FlowLayout());
+		this.setTitle("CSI VESIT CricoMania Feeder");
+		this.setSize(1024, 320);
+		this.setLocationRelativeTo(null);														//center locn
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);									//dispose all UI windows
+		
+		jpGetTeamPlayerInfo.add(jtxfGetTotalNumTeams = new JTextField("Enter Total number of teams", 22));
+		jtxfGetTotalNumTeams.addFocusListener(new FocusListener()
+		{	
+			@Override
+			public void focusLost(FocusEvent arg0)
+			{
+				try
+				{
+					int temp = Integer.parseInt(jtxfGetTotalNumTeams.getText().toString().trim());
+					if(temp<=0)
+						throw new Exception("Invalid Team Count");
+				}catch(Exception e)
+				{
+					JOptionPane.showMessageDialog(MainFrame.this, "Invalid team count because of: " + e.getMessage()+", Re-enter", "Error", JOptionPane.ERROR_MESSAGE);
+					jtxfGetTotalNumTeams.requestFocus();
+				}
+			}
+			
+			@Override
+			public void focusGained(FocusEvent arg0)
+			{
+				if(jtxfGetTotalNumTeams.getText().trim().equals("Enter Total number of teams"))
+					jtxfGetTotalNumTeams.setText("");
+			}
+		});
+		jpGetTeamPlayerInfo.add(jbtnSetTotalNumTeams = new JButton("Set total num of teams"));
+		jbtnSetTotalNumTeams.addActionListener(new ActionListener()
+		{	
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				totalNumTeams = Integer.parseInt(jtxfGetTotalNumTeams.getText().toString().trim());
+				AndroidLikeToast.makeText(MainFrame.this, "Successfully set the team count!", AndroidLikeToast.LENGTH_SHORT, Style.SUCCESS).display();
+				jcomboBoxChooseTeamID.removeAllItems();
+				for(int i=1;i<=totalNumTeams;i++)
+					jcomboBoxChooseTeamID.addItem(i);
+			}
+		});
+		jpGetTeamPlayerInfo.add(jcomboBoxChooseTeamID = new JComboBox<Integer>());
+		jcomboBoxChooseTeamID.setToolTipText("Choose team ID");
+		jpGetTeamPlayerInfo.add(jcomboBoxChooseBoughtPlayer = new JComboBox<String>());
+		jcomboBoxChooseTeamID.setToolTipText("Choose player which team has bought");
+		this.add(jpGetTeamPlayerInfo);
+		
+		JPanel temp = new JPanel(new FlowLayout());
+		temp.add(jlblShowBoughtAtAmtInWords = new JLabel("Amt in words"));
+		temp.add(jtxfGetAmtAtWhichPlayerIsBought = new JTextField(20));
+		jpAmtOperations.add(temp, BorderLayout.NORTH);
+		
+		jpAmtModGrid.add(jbtnAddToAmt10 = new JButton("+10"));					jpAmtModGrid.add(jbtnMulAmtBy10 = new JButton("x10"));
+		jpAmtModGrid.add(jbtnAddToAmt100 = new JButton("+100"));				jpAmtModGrid.add(jbtnMulAmtBy100 = new JButton("x100"));
+		jpAmtModGrid.add(jbtnAddToAmt1k = new JButton("+1 k"));					jpAmtModGrid.add(jbtnMulAmtBy1k = new JButton("x1k"));
+		jpAmtModGrid.add(jbtnAddToAmt10k = new JButton("+10 k"));				jpAmtModGrid.add(jbtnMulAmtBy10k = new JButton("x10k"));
+		jpAmtModGrid.add(jbtnAddToAmt1Lac = new JButton("+1 Lac"));				jpAmtModGrid.add(jbtnMulAmtBy1Lac = new JButton("x1Lac"));
+		jpAmtModGrid.add(jbtnAddToAmt10Lac = new JButton("+10Lac"));			jpAmtModGrid.add(jbtnMulAmtBy10Lac = new JButton("x10Lac"));
+		jpAmtModGrid.add(jbtnAddToAmt1Cr = new JButton("+1 Cr"));				jpAmtModGrid.add(jbtnMulAmtBy1Cr = new JButton("x1Cr"));
+		jpAmtModGrid.add(jbtnAddToAmt10Cr = new JButton("+10 Cr"));				jpAmtModGrid.add(jbtnMulAmtBy10Cr = new JButton("x10Cr"));
+		
+		jpAmtOperations.add(jpAmtModGrid, BorderLayout.CENTER);
+		this.add(jpAmtOperations);
+		
+		AmtModificationListener amtModificationListener = new AmtModificationListener();
+		jbtnAddToAmt10.addActionListener(amtModificationListener);
+		jbtnAddToAmt100.addActionListener(amtModificationListener);
+		jbtnAddToAmt1k.addActionListener(amtModificationListener);
+		jbtnAddToAmt10k.addActionListener(amtModificationListener);
+		jbtnAddToAmt1Lac.addActionListener(amtModificationListener);
+		jbtnAddToAmt10Lac.addActionListener(amtModificationListener);
+		jbtnAddToAmt1Cr.addActionListener(amtModificationListener);
+		jbtnAddToAmt10Cr.addActionListener(amtModificationListener);
+		
+		jbtnMulAmtBy10.addActionListener(amtModificationListener);
+		jbtnMulAmtBy100.addActionListener(amtModificationListener);
+		jbtnMulAmtBy1k.addActionListener(amtModificationListener);
+		jbtnMulAmtBy10k.addActionListener(amtModificationListener);
+		jbtnMulAmtBy1Lac.addActionListener(amtModificationListener);
+		jbtnMulAmtBy10Lac.addActionListener(amtModificationListener);
+		jbtnMulAmtBy1Cr.addActionListener(amtModificationListener);
+		jbtnMulAmtBy10Cr.addActionListener(amtModificationListener);
+		
+		this.add(jbtnInsertIntoServer = new JButton("Insert into Server"));
+		
+		/**********************************************************UI Code Finished here**********************************************************/
+		
+		/**********************************************************UI Elements Init from DB Code Starts here**********************************************************/
+		
+		try
+		{
+			Class.forName("com.mysql.jdbc.Driver");
+			conn = DriverManager.getConnection(DBConnURL, DBLoginUsername, DBLoginPassword);
+			stmt = conn.createStatement();
+			
+			System.out.println("[ "+logEventTimestampFormat.format(System.currentTimeMillis())+" - org.csiVesit.cricomania.feeder.MainFrame ] DB Connection Success!");
+			
+			rs = stmt.executeQuery("select * from cricomania_players");
+			while(rs.next())
+			{
+				int playerID;
+				String playerName;
+				allPlayers.add(new CricoManiaPlayer(playerID = rs.getInt("player_id"), rs.getInt("pool_id"), rs.getInt("age"), rs.getInt("brand_value"), playerName = rs.getString("player_name"), rs.getString("country"), rs.getString("type_of_player"), rs.getString("photo_file_path"), rs.getBoolean("is_available"), rs.getBoolean("is_sold"), rs.getDouble("base_price")));
+				jcomboBoxChooseBoughtPlayer.addItem(playerName+"; ID => "+playerID);
+			}
+			rs.close();
+			
+			System.out.println("[ "+logEventTimestampFormat.format(System.currentTimeMillis())+" - org.csiVesit.cricomania.feeder.MainFrame ] Populated All Players for local use from DB Server!");
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(MainFrame.this, "Error while connecting to DB/Init from DB", "Error", JOptionPane.ERROR_MESSAGE);
+			System.exit(1);
+		}
+		
+		/**********************************************************UI Elements Init from DB Code Finished here**********************************************************/
+		this.setVisible(true);
+	}
+	
+	class AmtModificationListener implements ActionListener
+	{
+		@Override
+		public void actionPerformed(ActionEvent ae)
+		{
+			String alreadyExistingText = jtxfGetAmtAtWhichPlayerIsBought.getText().toString().trim();
+			JButton eventSrc = (JButton) ae.getSource();
+			StringWriter strWriter;
+			PrintWriter pw = new PrintWriter(strWriter = new StringWriter());
+			
+			if(playerBoughtAtAmt==0.0 && jtxfGetAmtAtWhichPlayerIsBought.getText().toString().trim().length()>0)
+				playerBoughtAtAmt = Double.parseDouble(jtxfGetAmtAtWhichPlayerIsBought.getText().toString().trim().replaceAll("[,+]", ""));
+			
+			if(eventSrc.equals(jbtnAddToAmt10))
+			{
+				if(alreadyExistingText!=null && alreadyExistingText.equals(""))
+				{
+					playerBoughtAtAmt = 10;
+					jtxfGetAmtAtWhichPlayerIsBought.setText("10");
+				}else
+					jtxfGetAmtAtWhichPlayerIsBought.setText(Double.toString(playerBoughtAtAmt = playerBoughtAtAmt + 10));
+			}else if(eventSrc.equals(jbtnAddToAmt100))
+			{
+				if(alreadyExistingText!=null && alreadyExistingText.equals(""))
+				{
+					jtxfGetAmtAtWhichPlayerIsBought.setText("100");
+					playerBoughtAtAmt = 100;
+				}else
+					jtxfGetAmtAtWhichPlayerIsBought.setText(Double.toString(playerBoughtAtAmt = playerBoughtAtAmt + 100));
+			}else if(eventSrc.equals(jbtnAddToAmt1k))
+			{
+				if(alreadyExistingText!=null && alreadyExistingText.equals(""))
+				{
+					jtxfGetAmtAtWhichPlayerIsBought.setText("1,000");
+					playerBoughtAtAmt = 1000;
+				}else
+					jtxfGetAmtAtWhichPlayerIsBought.setText(Double.toString(playerBoughtAtAmt = playerBoughtAtAmt + 1000));
+			}else if(eventSrc.equals(jbtnAddToAmt10k))
+			{
+				if(alreadyExistingText!=null && alreadyExistingText.equals(""))
+				{
+					jtxfGetAmtAtWhichPlayerIsBought.setText("10,000");
+					playerBoughtAtAmt = 10000;
+				}else
+					jtxfGetAmtAtWhichPlayerIsBought.setText(Double.toString(playerBoughtAtAmt = playerBoughtAtAmt + 10000));
+			}else if(eventSrc.equals(jbtnAddToAmt1Lac))
+			{
+				if(alreadyExistingText!=null && alreadyExistingText.equals(""))
+				{
+					jtxfGetAmtAtWhichPlayerIsBought.setText("1,00,000");
+					playerBoughtAtAmt = 100000;
+				}else
+					jtxfGetAmtAtWhichPlayerIsBought.setText(Double.toString(playerBoughtAtAmt = playerBoughtAtAmt + 100000));
+			}else if(eventSrc.equals(jbtnAddToAmt10Lac))
+			{
+				if(alreadyExistingText!=null && alreadyExistingText.equals(""))
+				{
+					jtxfGetAmtAtWhichPlayerIsBought.setText("10,00,000");
+					playerBoughtAtAmt = 1000000;
+				}else
+					jtxfGetAmtAtWhichPlayerIsBought.setText(Double.toString(playerBoughtAtAmt = playerBoughtAtAmt + 1000000));
+			}else if(eventSrc.equals(jbtnAddToAmt1Cr))
+			{
+				if(alreadyExistingText!=null && alreadyExistingText.equals(""))
+				{
+					jtxfGetAmtAtWhichPlayerIsBought.setText("1,00,00,000");
+					playerBoughtAtAmt = 10000000;
+				}else
+					jtxfGetAmtAtWhichPlayerIsBought.setText(Double.toString(playerBoughtAtAmt = playerBoughtAtAmt + 10000000));
+			}else if(eventSrc.equals(jbtnAddToAmt10Cr))
+			{
+				if(alreadyExistingText!=null && alreadyExistingText.equals(""))
+				{
+					jtxfGetAmtAtWhichPlayerIsBought.setText("10,00,00,000");
+					playerBoughtAtAmt = 100000000;
+				}else
+					jtxfGetAmtAtWhichPlayerIsBought.setText(Double.toString(playerBoughtAtAmt = playerBoughtAtAmt + 100000000));
+			}else if(eventSrc.equals(jbtnMulAmtBy10))
+			{
+				if(alreadyExistingText!=null && alreadyExistingText.equals(""))
+				{
+					jtxfGetAmtAtWhichPlayerIsBought.setText("10");
+					playerBoughtAtAmt = 10;
+				}else
+					jtxfGetAmtAtWhichPlayerIsBought.setText(Double.toString(playerBoughtAtAmt = playerBoughtAtAmt * 10));
+			}else if(eventSrc.equals(jbtnMulAmtBy100))
+			{
+				if(alreadyExistingText!=null && alreadyExistingText.equals(""))
+				{
+					jtxfGetAmtAtWhichPlayerIsBought.setText("100");
+					playerBoughtAtAmt = 100;
+				}else
+					jtxfGetAmtAtWhichPlayerIsBought.setText(Double.toString(playerBoughtAtAmt = playerBoughtAtAmt * 100));
+			}else if(eventSrc.equals(jbtnMulAmtBy1k))
+			{
+				if(alreadyExistingText!=null && alreadyExistingText.equals(""))
+				{
+					jtxfGetAmtAtWhichPlayerIsBought.setText("1,000");
+					playerBoughtAtAmt = 1000;
+				}else
+					jtxfGetAmtAtWhichPlayerIsBought.setText(Double.toString(playerBoughtAtAmt = playerBoughtAtAmt * 1000));
+			}else if(eventSrc.equals(jbtnMulAmtBy10k))
+			{
+				if(alreadyExistingText!=null && alreadyExistingText.equals(""))
+				{
+					jtxfGetAmtAtWhichPlayerIsBought.setText("10,000");
+					playerBoughtAtAmt = 10000;
+				}else
+					jtxfGetAmtAtWhichPlayerIsBought.setText(Double.toString(playerBoughtAtAmt = playerBoughtAtAmt * 10000));
+			}else if(eventSrc.equals(jbtnMulAmtBy1Lac))
+			{
+				if(alreadyExistingText!=null && alreadyExistingText.equals(""))
+				{
+					jtxfGetAmtAtWhichPlayerIsBought.setText("1,00,000");
+					playerBoughtAtAmt = 100000;
+				}else
+					jtxfGetAmtAtWhichPlayerIsBought.setText(Double.toString(playerBoughtAtAmt = playerBoughtAtAmt * 100000));
+			}else if(eventSrc.equals(jbtnMulAmtBy10Lac))
+			{
+				if(alreadyExistingText!=null && alreadyExistingText.equals(""))
+				{
+					jtxfGetAmtAtWhichPlayerIsBought.setText("10,00,000");
+					playerBoughtAtAmt = 1000000;
+				}else
+					jtxfGetAmtAtWhichPlayerIsBought.setText(Double.toString(playerBoughtAtAmt = playerBoughtAtAmt * 1000000));
+			}else if(eventSrc.equals(jbtnMulAmtBy1Cr))
+			{
+				if(alreadyExistingText!=null && alreadyExistingText.equals(""))
+				{
+					jtxfGetAmtAtWhichPlayerIsBought.setText("1,00,00,000");
+					playerBoughtAtAmt = 10000000;
+				}else
+					jtxfGetAmtAtWhichPlayerIsBought.setText(Double.toString(playerBoughtAtAmt = playerBoughtAtAmt * 10000000));
+			}else if(eventSrc.equals(jbtnMulAmtBy10Cr))
+			{
+				if(alreadyExistingText!=null && alreadyExistingText.equals(""))
+				{
+					jtxfGetAmtAtWhichPlayerIsBought.setText("10,00,00,000");
+					playerBoughtAtAmt = 100000000;
+				}else
+					jtxfGetAmtAtWhichPlayerIsBought.setText(Double.toString(playerBoughtAtAmt = playerBoughtAtAmt * 100000000));
+			}
+			pw.format("%f", playerBoughtAtAmt);
+			jtxfGetAmtAtWhichPlayerIsBought.setText(strWriter.getBuffer().toString());
+			getNumberInWords.setNumber((long)playerBoughtAtAmt);
+			jlblShowBoughtAtAmtInWords.setText(getNumberInWords.getNumberInWords());
+		}
+	}
+	
+	public static void main(String[] args)
+	{
+		try
+		{
+			SwingUtilities.invokeAndWait(new Runnable()							//make GUI on event dispatching thread
+			{
+					public void run()
+					{
+						try
+						{
+							UIManager.setLookAndFeel(new NimbusLookAndFeel());
+						}catch (UnsupportedLookAndFeelException e)
+						{
+							e.printStackTrace();
+						}
+						new MainFrame();
+					}
+			});
+		}catch(InterruptedException intre)
+		{
+			intre.printStackTrace();
+		}catch(InvocationTargetException invocationTargetExcep)
+		{
+			invocationTargetExcep.printStackTrace();
+		}
+	}
+}

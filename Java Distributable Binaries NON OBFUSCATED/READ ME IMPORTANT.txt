@@ -1,0 +1,8 @@
+1.libs folder has all libraries(jar files) i.e used in our 7 Cricomania softwares
+2.they have to be kept in java classpaths
+3.ALREADY THEY ARE PRESENT inside distributable binaries(jars) SO NEED of ABOVE STEP 2
+4.These jars present in this directory are OBFUSCATED for security reasons(so that no other society gets the source code)
+
+For NON-OBFUSCATED binaries and sources contact CSI TE Council Members of year 2013-14(Batch 2011-2015):
+	Ritesh Talreja	9920075939	D12A TE CMPN
+	Rohan Tondulkar	9869693555	D12B TE CMPN

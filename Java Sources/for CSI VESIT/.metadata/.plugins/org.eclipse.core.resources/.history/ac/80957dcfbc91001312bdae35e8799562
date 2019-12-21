@@ -1,0 +1,9 @@
+package org.csiVesit.cricomania.feeder;
+
+public class CricoManiaPlayers
+{
+	int playerID, poolID, age, brandValue;
+	String playerName, country, typeOfPlayer, photoFilePath;
+	boolean isAvailable, isSold;
+	double basePrice;
+}

@@ -1,0 +1,1 @@
+java -jar "CSI VESIT CricoMania Feeder.jar"

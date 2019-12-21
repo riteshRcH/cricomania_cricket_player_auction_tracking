@@ -1,0 +1,25 @@
+"for CSI VESIT" folder is eclipse workspace that has 5 eclipse projects:
+	1.(functioning) CSI VESIT Cricomania			(ONLY for Council Members)
+				-Main application that feeds which team bought which player with all details in realtime while auction
+	2.(functioning) CSI VESIT Cricomania PerTeam Stats Display			(for Society Members)
+				-during auction once we enter using feeder
+				-each time can use this android app to view their current balance and other stats in realtime
+				-provided server and mobile phones are all connected in same WiFi network
+				-already incorporated in CSI VESIT main app
+	3:(functioning) MiniEventsScorerApp			(ONLY for Council Members as CSI VESIT Council App)
+				-Android App that helps to records the amount won by any team in sponsorship round
+				-each council member present at the desk of their sponsorship event would use this app to update scores of each team to a central MiniEventsScorerServer
+	4.(functioning) MiniEventsScorerServer			(ONLY for Council Members)
+				-Server Application that receives and records scores/amounts won in every sponsorship round by each team fed by council members using above app
+				-gives total too so no manual calculations
+
+NOTE:	MiniEventsScorerApp and MiniEventsScorerServer CAN BE USED FOR ANY MEGA EVENT THAT HAS MINI EVENTS; 	Egs: Cashin, IdiotBox, CricoMania, Exploration Unravalled, Rebellion etc
+
+	5. (defunct)	UpdateMiniEventTotalToServerCricoMania			(ONLY for Council Members)
+			-updates the total from the MiniEventsScorerServer to our web server DB
+	6.(functioning) JavaFXApplication1			(ONLY for Council Members)
+			-connects to the DB Server via WiFi network for Cricomania
+			-displays current player stats(international/ipl) onto a projector
+	7.(functioning) PoolsDisplay			(ONLY for Council Members)
+			-connects to the DB Server via WiFi network for Cricomania
+			-displays current pool and its players(color coded sold, current player etc) onto a projector

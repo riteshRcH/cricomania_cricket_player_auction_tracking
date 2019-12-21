@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="532.0" prefWidth="616.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="poolsdisplay.CurrentPoolController">
+  <children>
+    <Label layoutX="231.0" layoutY="65.0" prefHeight="30.0" prefWidth="190.0" text="Database Connection Url">
+      <font>
+        <Font size="16.0" />
+      </font>
+    </Label>
+    <Label layoutX="59.0" layoutY="140.0" prefWidth="35.0" text="jdbc">
+      <font>
+        <Font size="14.0" fx:id="x1" />
+      </font>
+    </Label>
+    <TextField fx:id="vendor" layoutX="103.0" layoutY="139.0" prefWidth="102.0" text="mysql" />
+    <Label font="$x1" layoutX="234.0" layoutY="140.0" prefWidth="25.0" text="://" />
+    <TextField fx:id="ip_port" layoutX="262.0" layoutY="139.0" prefWidth="127.0" text="192.168.2.2:3306" />
+    <Label font="$x1" layoutX="410.0" layoutY="142.0" prefWidth="12.5" text="/" />
+    <TextField fx:id="db" layoutX="434.0" layoutY="139.0" prefWidth="127.0" text="csi_cricomania" />
+    <Label font="$x1" layoutX="127.0" layoutY="111.0" prefWidth="54.0" text="Vendor" />
+    <Label font="$x1" layoutX="291.0" layoutY="111.0" prefWidth="54.0" text="IP:Port" />
+    <Label font="$x1" layoutX="466.0" layoutY="111.0" prefWidth="64.0" text="Database" />
+    <Label font="$x1" layoutX="217.0" layoutY="232.0" prefWidth="146.0" text="DB Login Username" />
+    <Label font="$x1" layoutX="217.0" layoutY="284.0" prefWidth="146.0" text="DB Login Password" />
+    <TextField fx:id="user_name" layoutX="366.0" layoutY="231.0" prefWidth="102.0" text="CSICricomaniaDBA" />
+    <TextField fx:id="pwd" layoutX="363.0" layoutY="284.0" prefWidth="102.0" promptText="Enter your password here" text="" />
+    <Button fx:id="db_init" layoutX="59.0" layoutY="338.0" mnemonicParsing="false" onAction="#setAndInitDB" prefHeight="54.0" prefWidth="502.0" text="Set DB and init">
+      <font>
+        <Font size="26.0" />
+      </font>
+    </Button>
+    <Label layoutX="217.0" layoutY="432.0" prefWidth="88.0" text="Developers:">
+      <font>
+        <Font name="System Bold" size="14.0" fx:id="x2" />
+      </font>
+    </Label>
+    <Label font="$x2" layoutX="234.0" layoutY="470.0" prefWidth="234.0" text="Ritesh Talreja (Mob: 9920075939)" />
+    <Label font="$x2" layoutX="234.0" layoutY="451.0" prefWidth="258.0" text="Rohan Tondulkar (Mob: 9869693555)" />
+    <Label font="$x2" layoutX="217.0" layoutY="489.0" prefWidth="217.0" text="Batch : 2011-2015, TE - CMPN" />
+  </children>
+</AnchorPane>

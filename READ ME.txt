@@ -1,0 +1,26 @@
+In 2014 CSI VESIT Cricomania was held twice
+	1 for SEs + MCAs 		=> rar present, old softwares DO NOT use!
+	2 for TEs + BEs			=> updated code, USE .. present as folders everywhere
+
+Languages used:
+	PHP pages that extraxt out current stats data from DB and deliver it as XML to the android app of current stats viewing
+	Java for Feeder, MiniEventsScorerServer, UpdateMiniEventTotalToWebServerCricoMania and the 2 Android Apps
+	JavaFx for PoolsDisplay and Cricomania_player_details
+SDKs/Software Bundles used used:
+	Android SDK v4.4(Kitkat) although tested apps on Custom ROMs(PAC and CM :P)
+	Eclipse ADT Plugin
+	Eclipse Kepler IDE
+	Java JDK 7
+	XAMPP for PHP, MySQL and PhpMyAdmin
+	NetBeans IDE
+	JavaFX
+Broad Steps:
+	-Install necessary softwares
+	-copy paste PHP files into xampp/htdocs folder
+	-import applications of "for CSI VESIT" into eclipse(prerequiste:	setup for Android)
+	-rest 2 JavaFX applications import into NetBeans IDE
+	-run!
+
+For more detaild contact CSI TE Council Members of year 2013-14(Batch 2011-2015):
+	Ritesh Talreja	9920075939	D12A TE CMPN
+	Rohan Tondulkar	9869693555	D12B TE CMPN

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="PoolsDisplay.jnlp">
+  <information>
+    <title>PoolsDisplay</title>
+    <vendor>admin</vendor>
+    <description>null</description>
+    <offline-allowed/>
+  </information>
+  <resources>
+    <jfx:javafx-runtime version="2.2+" href="http://javadl.sun.com/webapps/download/GetFile/javafx-latest/windows-i586/javafx2.jnlp"/>
+  </resources>
+  <resources>
+    <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+    <jar href="PoolsDisplay.jar" size="71340" download="eager" />
+    <jar href="lib/appframework-1.0.3.jar" size="329997" download="eager" />
+    <jar href="lib/mysql-connector-java-5.1.23-bin.jar" size="860476" download="eager" />
+    <jar href="lib/swing-layout-1.0.4.jar" size="120743" download="eager" />
+    <jar href="lib/swing-worker-1.1.jar" size="15433" download="eager" />
+  </resources>
+<security>
+  <all-permissions/>
+</security>
+  <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="PoolsDisplay" >
+    <param name="requiredFXVersion" value="2.2+"/>
+  </applet-desc>
+  <jfx:javafx-desc  width="800" height="600" main-class="poolsdisplay.PoolsDisplay"  name="PoolsDisplay" />
+  <update check="always"/>
+</jnlp>
