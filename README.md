@@ -1,4 +1,4 @@
-# Cricomania [ Cricket Player Auction Tracking ]
+# Cricomania 2014 [ Cricket Player Auction Tracking ]
 
 A complete package of 5 applications made exclusively for Cricomania event of CSI. Components include:<br/>
 ◆ Android App and Server over Wi-Fi to track scores of events played<br/>
